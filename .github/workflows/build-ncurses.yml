@@ -37,7 +37,9 @@ jobs:
         # Build and install
         make -j4 \
         CC=gcc-14 \
-        CXX=c++-14
+        CXX=c++-14 \
+        CFLAGS="-Wall -O2 -DNDEBUG -ffunction-sections -fdata-sections" \
+        CXXFLAGS="-Wall -O2 -DNDEBUG -ffunction-sections -fdata-sections"
         make install
     - name: Upload the install directory
       uses: actions/upload-artifact@v4
