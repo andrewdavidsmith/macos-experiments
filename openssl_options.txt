@@ -1,4 +1,3 @@
-linux-x86_64
 no-apps
 no-aria
 no-asm
