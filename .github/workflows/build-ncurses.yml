@@ -28,7 +28,9 @@ jobs:
         --with-normal \
         --without-gpm \
         --disable-widec \
-        --prefix=/tmp/ncurses_custom
+        --prefix=/tmp/ncurses_custom \
+        CC=gcc-14 \
+        CXX=c++-14
         # Copy the fallback defs into place
         cp ${GITHUB_WORKSPACE}/fallback.c ncurses
         # Build and install
