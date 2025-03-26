@@ -1,0 +1,19 @@
+name: Build things with R on macos
+
+on:
+  workflow_dispatch:
+
+jobs:
+  macos-build:
+    strategy:
+      matrix:
+        os: [macos-15]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build with R
+      run: |
+        brew install r
+    - name: Install packages
+    - run: |
+        Rscript -e 'install.packages("Rcpp", "R6", "roxygen2")'
