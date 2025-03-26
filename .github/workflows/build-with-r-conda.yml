@@ -21,6 +21,11 @@ jobs:
           conda info
           conda list
       - name: install R
+        shell: bash -el {0}
         run: |
           conda install conda-forge::r-base
+          find $HOME/miniconda3 -name R
+      - name: Run R
+        shell: bash -el {0}
+        run: |
           R CMD config --all | grep CXX17
