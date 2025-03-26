@@ -20,6 +20,15 @@ jobs:
         run: |
           conda info
           conda list
+      - name: install GCC
+        shell: bash -el {0}
+        run: |
+          conda install conda-forge::gcc
+      - name: Bash
+        shell: bash -el {0}
+        run: |
+          conda info
+          conda list
       - name: install R
         shell: bash -el {0}
         run: |
