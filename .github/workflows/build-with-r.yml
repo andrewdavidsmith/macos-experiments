@@ -17,6 +17,8 @@ jobs:
     - name: Build with R
       run: |
         brew install r
+        brew install --cask mactex
+        brew install --cask font-inconsolata
     - name: Install packages
       run: |
         Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org')); install.packages(c('Rcpp', 'R6', 'roxygen2'))"
