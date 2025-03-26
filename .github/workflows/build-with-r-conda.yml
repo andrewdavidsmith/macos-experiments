@@ -23,7 +23,7 @@ jobs:
       - name: install GCC
         shell: bash -el {0}
         run: |
-          conda install conda-forge::gcc
+          conda search gcc
       - name: Bash
         shell: bash -el {0}
         run: |
