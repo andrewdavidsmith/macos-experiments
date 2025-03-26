@@ -16,4 +16,4 @@ jobs:
         brew install r
     - name: Install packages
       run: |
-        Rscript -e 'install.packages("Rcpp", "R6", "roxygen2")'
+        Rscript -e "install.packages('Rcpp')"
