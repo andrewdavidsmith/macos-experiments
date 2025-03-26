@@ -1,0 +1,22 @@
+name: Conda build on macos
+
+on:
+  workflow_dispatch:
+
+env:
+  MAKEFLAGS: -j4
+
+jobs:
+  example-2-linux:
+    name: Ex2 macos-15
+    runs-on: macos-15
+    steps:
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          miniconda-version: "latest"
+          activate-environment: foo
+      - name: Bash
+        shell: bash -el {0}
+        run: |
+          conda info
+          conda list
