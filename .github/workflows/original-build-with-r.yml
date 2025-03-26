@@ -37,6 +37,7 @@ jobs:
         R CMD build rsrc && \
         R CMD check --no-manual transferase_0.5.0.tar.gz && \
         R CMD INSTALL transferase_0.5.0.tar.gz
+        R -e "library(transferase); config_xfr(c('hg38'))"
     - name: Upload the prepared sources
       uses: actions/upload-artifact@v4
       with:
