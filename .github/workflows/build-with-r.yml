@@ -16,4 +16,4 @@ jobs:
         brew install r
     - name: Install packages
       run: |
-        Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org')); install.packages('Rcpp')"
+        Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org')); install.packages('Rcpp', 'R6', 'roxygen2')"
