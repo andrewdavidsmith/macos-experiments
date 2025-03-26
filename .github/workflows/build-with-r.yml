@@ -39,7 +39,7 @@ jobs:
         mkdir rsrc/doc && \
         R CMD Rd2pdf -o rsrc/doc/transferase.pdf --no-preview rsrc && \
         R CMD build rsrc && \
-        R CMD check transferase_0.5.0.tar.gz
+        R CMD check --no-manual transferase_0.5.0.tar.gz
     - name: Upload the prepared sources
       uses: actions/upload-artifact@v4
       with:
