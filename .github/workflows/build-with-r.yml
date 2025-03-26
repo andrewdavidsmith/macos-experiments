@@ -17,3 +17,10 @@ jobs:
     - name: Install packages
       run: |
         Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org')); install.packages(c('Rcpp', 'R6', 'roxygen2'))"
+    - name: Clone transferase
+      run: |
+        git clone https://github.com/andrewdavidsmith/transferase && \
+        cd transferase
+        cmake -B build -DBUILD_R=on -DCMAKE_INSTALL_PREFIX=rsrc -Wno-dev && \
+        cmake --install build && \
+        R CMD INSTALL --no-inst rsrc
