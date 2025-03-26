@@ -15,5 +15,5 @@ jobs:
       run: |
         brew install r
     - name: Install packages
-    - run: |
+      run: |
         Rscript -e 'install.packages("Rcpp", "R6", "roxygen2")'
