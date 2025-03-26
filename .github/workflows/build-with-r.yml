@@ -3,6 +3,9 @@ name: Build things with R on macos
 on:
   workflow_dispatch:
 
+env:
+  MAKEFLAGS: -j4
+
 jobs:
   macos-build:
     strategy:
@@ -19,11 +22,14 @@ jobs:
         Rscript -e "options(repos = c(CRAN = 'https://cloud.r-project.org')); install.packages(c('Rcpp', 'R6', 'roxygen2'))"
     - name: Clone transferase
       run: |
+        mkdir ${HOME}/.R && \
+        echo "CC=gcc" >> ${HOME}/.R/Makevars && \
+        echo "CXX=g++" >> ${HOME}/.R/Makevars && \
         git clone https://github.com/andrewdavidsmith/transferase && \
         cd transferase && \
         cmake -B build -DBUILD_R=on -DCMAKE_INSTALL_PREFIX=rsrc -Wno-dev && \
         cmake --install build && \
-        CC=gcc-14 CXX=g++-14 R CMD INSTALL --no-inst rsrc
+        R CMD INSTALL --no-inst rsrc
     - name: Upload the prepared sources
       uses: actions/upload-artifact@v4
       with:
