@@ -17,7 +17,7 @@ jobs:
     - name: Build with R
       run: |
         brew install r
-        brew install --cask mactex
+        brew install --cask mactex-no-gui
         brew install --cask font-inconsolata
     - name: Install packages
       run: |
