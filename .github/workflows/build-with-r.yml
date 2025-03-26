@@ -35,7 +35,8 @@ jobs:
         R CMD INSTALL --no-inst rsrc && \
         Rscript -e "library(roxygen2, R6); roxygen2::roxygenize('rsrc')" && \
         R CMD build rsrc && \
-        R CMD check --no-manual transferase_0.5.0.tar.gz
+        R CMD check --no-manual transferase_0.5.0.tar.gz && \
+        R CMD INSTALL transferase_0.5.0.tar.gz
     - name: Upload the prepared sources
       uses: actions/upload-artifact@v4
       with:
