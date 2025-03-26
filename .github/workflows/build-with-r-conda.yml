@@ -20,3 +20,7 @@ jobs:
         run: |
           conda info
           conda list
+      - name: install R
+        run: |
+          conda install conda-forge::r-base
+          R CMD config --all | grep CXX17
