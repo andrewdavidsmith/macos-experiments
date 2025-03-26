@@ -28,4 +28,4 @@ jobs:
       - name: Run R
         shell: bash -el {0}
         run: |
-          R CMD config --all | grep CXX17
+          R CMD config --all
