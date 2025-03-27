@@ -46,7 +46,9 @@ jobs:
           brew --prefix
           echo Listing Brew prefix
           ls -l $(brew --prefix)
-          sudo ln -s $(brew --prefix) /usr/local
+          sudo mkdir /usr/local
+          sudo ln -s $(brew --prefix)/include /usr/local/include
+          sudo ln -s $(brew --prefix)/lib /usr/local/lib
           echo Now usr local
           ls -l /usr/local
       - name: see clang search path
