@@ -1,1 +1,26 @@
-#stuff
+name: None
+
+on:
+  workflow_dispatch:
+
+env:
+  MAKEFLAGS: -j4
+
+jobs:
+  build-r:
+    strategy:
+      matrix:
+        os: [macos-15]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Update Homebrew
+        run: |
+          brew update
+      - name: Install LaTeX
+        run: |
+          brew install mactex-no-gui
+          brew install --cask font-inconsolata
+      - name: Test it
+      - run: |
+          whereis pdflatex
+          brew --prefix mactex-no-gui
