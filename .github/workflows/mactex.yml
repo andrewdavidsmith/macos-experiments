@@ -34,3 +34,6 @@ jobs:
       - name: find the font 2
         run: |
           sudo find /usr -name \*.sty
+      - name: see clang search path
+        run: |
+          echo | clang -E -Wp,-v -
