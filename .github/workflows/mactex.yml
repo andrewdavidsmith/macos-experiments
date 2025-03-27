@@ -32,4 +32,6 @@ jobs:
           sudo find /usr -name \*inconsola\*
       - name: find the font
         run: |
-          sudo find /usr -name \*inconsola\*
+          eval "$(/usr/libexec/path_helper)"
+          sudo find /usr -name inconsolata
+          sudo find /usr -name \*.sty
