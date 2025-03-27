@@ -19,9 +19,6 @@ jobs:
       - name: Update Homebrew
         run: |
           brew update
-      - name: Link /usr/local to Homebrew
-        run: |
-          sudo ln -s $(brew --prefix) /usr/local
       - name: Install LaTeX
         run: |
           sudo ls -l /usr/local
@@ -43,6 +40,15 @@ jobs:
       - name: Find OpenSSL
         run: |
           brew --prefix openssl
+      - name: Link /usr/local to Homebrew
+        run: |
+          echo Brew prefix
+          brew --prefix
+          echo Listing Brew prefix
+          ls -l $(brew --prefix)
+          sudo ln -s $(brew --prefix) /usr/local
+          echo Now usr local
+          ls -l /usr/local
       - name: see clang search path
         run: |
           echo | clang -E -Wp,-v -
