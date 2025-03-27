@@ -24,10 +24,5 @@ jobs:
           brew install basictex
       - name: Look second
         run: |
-          whereis pdflatex
-      - name: Test it
-        run: |
-          brew --prefix texlive
           eval "$(/usr/libexec/path_helper)"
           whereis pdflatex
-          find $(brew --prefix texlive) -name pdflatex
