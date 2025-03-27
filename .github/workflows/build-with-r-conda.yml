@@ -38,3 +38,9 @@ jobs:
         shell: bash -el {0}
         run: |
           R CMD config --all
+      - name: Install OpenSSL
+        run: |
+          brew update
+          brew install openssl
+          brew --prefix openssl
+          ls -lR $(brew --prefix openssl)
