@@ -24,6 +24,7 @@ jobs:
           sudo ln -s $(brew --prefix) /usr/local
       - name: Install LaTeX
         run: |
+          sudo ls -l /usr/local
           brew install basictex
       - name: Look second
         run: |
