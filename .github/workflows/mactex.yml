@@ -13,12 +13,18 @@ jobs:
         os: [macos-15]
     runs-on: ${{ matrix.os }}
     steps:
+      - name: Look first
+        run: |
+          whereis pdflatex
       - name: Update Homebrew
         run: |
           brew update
       - name: Install LaTeX
         run: |
           brew install basictex
+      - name: Look second
+        run: |
+          whereis pdflatex
       - name: Test it
         run: |
           brew --prefix texlive
