@@ -26,17 +26,10 @@ jobs:
         run: |
           eval "$(/usr/libexec/path_helper)"
           whereis pdflatex
-      - name: get the font
-        run: |
-          brew install --cask font-inconsolata
-          sudo find /usr -name \*inconsola\*
       - name: find the font bb
         run: |
           eval "$(/usr/libexec/path_helper)"
-          sudo tlmgr update --self
-          sudo tlmgr update --all
-          sudo tlmgr install titling framed inconsolata
-          sudo tlmgr install collection-fontsrecommended
+          tlmgr install inconsolata
       - name: find the font 2
         run: |
           sudo find /usr -name \*.sty
