@@ -22,7 +22,10 @@ jobs:
       - name: Install LaTeX
         run: |
           brew install basictex
-          eval "$(/usr/libexec/path_helper)"
       - name: Look second
         run: |
+          eval "$(/usr/libexec/path_helper)"
           whereis pdflatex
+      - name: get the font
+        run: |
+          brew install --cask font-inconsolata
