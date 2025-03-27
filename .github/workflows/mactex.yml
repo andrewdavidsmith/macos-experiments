@@ -28,6 +28,8 @@ jobs:
           brew install basictex
       - name: Look second
         run: |
+          sudo ls -l /usr/local
+          sudo ls -l $(brew --prefix)
           eval "$(/usr/libexec/path_helper)"
           whereis pdflatex
       - name: find the font bb
