@@ -21,7 +21,7 @@ jobs:
           brew update
       - name: Link /usr/local to Homebrew
         run: |
-          ln -s $(brew --prefix) /usr/local
+          sudo ln -s $(brew --prefix) /usr/local
       - name: Install LaTeX
         run: |
           brew install basictex
