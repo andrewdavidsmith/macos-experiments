@@ -34,9 +34,6 @@ jobs:
       - name: find the font 2
         run: |
           sudo find /usr -name \*.sty
-      - name: Install OpenSSL
-        run: |
-          brew install openssl
       - name: Find OpenSSL
         run: |
           brew --prefix openssl
