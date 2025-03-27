@@ -40,3 +40,7 @@ jobs:
       - name: see clang search path
         run: |
           echo | clang -E -Wp,-v -
+      - name: brew prefix
+        run: |
+          brew --prefix
+          ls $(brew --prefix)
