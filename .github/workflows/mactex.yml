@@ -18,9 +18,8 @@ jobs:
           brew update
       - name: Install LaTeX
         run: |
-          brew install mactex-no-gui
-          brew install --cask font-inconsolata
+          brew install basictex
       - name: Test it
         run: |
+          brew --prefix texlive
           whereis pdflatex
-          brew --prefix mactex-no-gui
