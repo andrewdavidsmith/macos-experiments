@@ -29,6 +29,7 @@ jobs:
       - name: find the font bb
         run: |
           eval "$(/usr/libexec/path_helper)"
+          sudo tlmgr update --self
           sudo tlmgr install inconsolata
       - name: find the font 2
         run: |
