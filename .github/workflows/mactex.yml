@@ -21,6 +21,6 @@ jobs:
           brew install mactex-no-gui
           brew install --cask font-inconsolata
       - name: Test it
-      - run: |
+        run: |
           whereis pdflatex
           brew --prefix mactex-no-gui
