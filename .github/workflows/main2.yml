@@ -1,0 +1,28 @@
+name: None2
+
+on:
+  workflow_dispatch:
+
+env:
+  MAKEFLAGS: -j4
+
+jobs:
+  build-r:
+    strategy:
+      matrix:
+        os: [macos-15]
+        python-version: [3.12, 3.13]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Python setup ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+        run: |
+          python --version
+      - name: Install Python packages
+        run: |
+          python3 -m venv .venv
+          . .venv/bin/activate
+          pip install --upgrade pip
+          pip install nanobind pytest wheel hatch packaging numpy
