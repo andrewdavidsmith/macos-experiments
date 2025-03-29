@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15")
 
 # Set the architecture(s)
-set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
+set(CMAKE_OSX_ARCHITECTURES "x86-64;arm64")
 
 # Create an executable target for the main.c file
 add_executable(main main.cpp)
