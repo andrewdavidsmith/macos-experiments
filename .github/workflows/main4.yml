@@ -18,13 +18,7 @@ jobs:
       run: clang -print-targets
     - name: See Targets
       run: clang -mcpu=help
-    - name: Build
-      run: |
-        cmake -B build -DCMAKE_VERBOSE_MAKEFILE=on -DCMAKE_BUILD_TYPE=Build
-    - name: Build
-      run: |
-        cmake --build build
-        ls
-    - name: Check that it runs
-      run: |
-        ./build/main
+    - name: make
+      run: make
+    - name: look
+      run: ls -ltrh .
