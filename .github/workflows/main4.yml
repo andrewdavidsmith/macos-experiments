@@ -14,6 +14,7 @@ jobs:
     - name: Build
       run: |
         cmake --build build
+        ls
     - name: Check that it runs
       run: |
         ./main
