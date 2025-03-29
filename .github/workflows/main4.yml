@@ -1,0 +1,19 @@
+name: Build on macOS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  macos-build:
+    runs-on: macos-15
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build
+      run: |
+        cmake -B build -DCMAKE_VERBOSE_MAKEFILE=on -DCMAKE_BUILD_TYPE=Build
+    - name: Build
+      run: |
+        cmake --build build
+    - name: Check that it runs
+      run: |
+        ./main
