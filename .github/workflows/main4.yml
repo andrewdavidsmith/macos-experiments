@@ -8,6 +8,14 @@ jobs:
     runs-on: macos-15
     steps:
     - uses: actions/checkout@v4
+    - name: See Effective Triple
+      run: clang -print-effective-triple
+    - name: See Supported CPUs
+      run: clang -print-supported-cpus
+    - name: See Target Triple
+      run: clang -print-target-triple
+    - name: See Targets
+      run: clang -print-targets
     - name: Build
       run: |
         cmake -B build -DCMAKE_VERBOSE_MAKEFILE=on -DCMAKE_BUILD_TYPE=Build
