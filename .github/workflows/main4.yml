@@ -17,4 +17,4 @@ jobs:
         ls
     - name: Check that it runs
       run: |
-        ./main
+        ./build/main
