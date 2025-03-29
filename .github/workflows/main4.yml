@@ -16,6 +16,8 @@ jobs:
       run: clang -print-target-triple
     - name: See Targets
       run: clang -print-targets
+    - name: See Targets
+      run: clang -mcpu=help
     - name: Build
       run: |
         cmake -B build -DCMAKE_VERBOSE_MAKEFILE=on -DCMAKE_BUILD_TYPE=Build
