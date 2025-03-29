@@ -19,6 +19,8 @@ jobs:
     - name: See Targets
       run: clang -mcpu=help
     - name: make
-      run: make
+      run: |
+        export CC=clang
+        make universal_app
     - name: look
       run: ls -ltrh .
