@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Configure
         run: |
-          cmake -B build -DCMAKE_BUILD_TYPE=Build
+          cmake -B build -DCMAKE_VERBOSE_MAKEFILE=on -DCMAKE_BUILD_TYPE=Build
       - name: look
         run: |
           cmake --build build
