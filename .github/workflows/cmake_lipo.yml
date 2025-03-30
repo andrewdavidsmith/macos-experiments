@@ -7,9 +7,10 @@ jobs:
   macos-build:
     runs-on: macos-15
     steps:
-    - name: Configure
-      run: |
-        cmake -B build -DCMAKE_BUILD_TYPE=Build
-    - name: look
-      run: |
-        cmake --build build
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: |
+          cmake -B build -DCMAKE_BUILD_TYPE=Build
+      - name: look
+        run: |
+          cmake --build build
