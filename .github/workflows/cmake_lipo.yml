@@ -21,3 +21,8 @@ jobs:
         run: |
           file build/main
           otool -L build/main
+    - name: Upload the file
+      uses: actions/upload-artifact@v4
+      with:
+        name: main
+        path: build/main
