@@ -17,3 +17,7 @@ jobs:
       - name: Look
         run: |
           ls -lR
+      - name: Check the file
+        run: |
+          file build/main
+          otool -L build/main
