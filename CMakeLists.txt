@@ -1,10 +1,8 @@
-# Set the architecture(s)
-set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
+cmake_minimum_required(VERSION 3.10)
 
 # Set the minimum macOS version to target
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15")
 
-cmake_minimum_required(VERSION 3.10)
 project(small)
 
 # Specify the C++ standard
