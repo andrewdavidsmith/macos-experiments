@@ -20,6 +20,7 @@ jobs:
       - name: Check the file
         run: |
           file build/main
+          file build/libmylib.a
           otool -L build/main
       - name: Upload the file
         uses: actions/upload-artifact@v4
