@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Configure
         run: |
-          cmake -B build -DCMAKE_VERBOSE_MAKEFILE=on -DCMAKE_OSX_ARCHITECTURES:STRING="arm64;x86_64" -DCMAKE_BUILD_TYPE=Build
+          cmake -B build -DCMAKE_VERBOSE_MAKEFILE=on -DCMAKE_BUILD_TYPE=Build
       - name: Build
         run: |
           cmake --build build
