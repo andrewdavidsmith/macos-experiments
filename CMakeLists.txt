@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.10)
 project(small)
 
 # Specify the C++ standard
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 
 # Create an executable target for the main.c file
 add_executable(main main.cpp)
