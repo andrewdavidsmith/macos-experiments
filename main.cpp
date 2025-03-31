@@ -1,5 +1,6 @@
-#include <print>
-int main() {
-std::print("hello\n");
+#include "mylib.hpp"
+int
+main() {
+  say_hi();
   return 0;
 }
