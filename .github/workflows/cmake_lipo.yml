@@ -22,8 +22,13 @@ jobs:
           file build/main
           file build/libmylib.a
           otool -L build/main
-      - name: Upload the file
+      - name: Upload the binary
         uses: actions/upload-artifact@v4
         with:
           name: main
           path: build/main
+      - name: Upload the library
+        uses: actions/upload-artifact@v4
+        with:
+          name: mylib
+          path: build/libmylib.a
