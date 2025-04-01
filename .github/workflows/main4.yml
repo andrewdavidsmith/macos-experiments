@@ -24,3 +24,6 @@ jobs:
         make universal_app
     - name: look
       run: ls -ltrh .
+    - name: check out the GCC arch options
+      run: |
+        gcc-14 --target-help 2>&1
