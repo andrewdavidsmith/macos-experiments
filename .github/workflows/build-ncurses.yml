@@ -36,8 +36,8 @@ jobs:
         cp ${GITHUB_WORKSPACE}/fallback.c ncurses
         # Build and install
         make -j4 \
-        CC=gcc-14 \
-        CXX=c++-14 \
+        CC=clang \
+        CXX=clang++ \
         CFLAGS="-Wall -O2 -DNDEBUG -ffunction-sections -fdata-sections -arch arm64 -arch x86_64 -mmacosx-version-min=14" \
         CXXFLAGS="-Wall -O2 -DNDEBUG -ffunction-sections -fdata-sections -arch arm64 -arch x86_64 -mmacosx-version-min=14"
         make install
