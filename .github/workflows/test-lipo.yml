@@ -14,6 +14,7 @@ jobs:
       - name: Get the lipo
         run: |
           wget https://smithlabresearch.org/transferase/transferase
+          chmod +x transferase
       - name: Run the lipo
         run: |
           ./transferase
