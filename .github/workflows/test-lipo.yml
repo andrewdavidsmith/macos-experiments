@@ -19,3 +19,6 @@ jobs:
         run: |
           ./transferase
           ./transferase query --help
+      - name: see cpu info
+        run: |
+          sysctl machdep.cpu
