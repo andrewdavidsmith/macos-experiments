@@ -9,11 +9,11 @@ project(small)
 
 # Specify the C++ standard
 set(CMAKE_CXX_STANDARD 23)
-
 add_library(mylib STATIC mylib.cpp)
 
 # Create an executable target for the main.c file
 add_executable(main main.cpp)
+target_link_options(main PRIVATE -static)
 
 target_link_libraries(main PRIVATE mylib)
 
