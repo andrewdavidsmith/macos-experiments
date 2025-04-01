@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Configure ${{ matrix.arch }}
         run: |
-          cmake -B build_${{matrix.arch}} -DCMAKE_VERBOSE_MAKEFILE=on -DCMAKE_CXX_COMPILER=g++-14 -DCMAKE_OSX_DEPLOYMENT_TARGET=14 -DCMAKE_OSX_ARCHITECTURES=${{matrix.arch}} -DCMAKE_BUILD_TYPE=Build
+          cmake -B build_${{matrix.arch}} -DCMAKE_VERBOSE_MAKEFILE=on -DCMAKE_CXX_COMPILER=$(brew --prefix llvm@18)/bin/clang++ -DCMAKE_OSX_DEPLOYMENT_TARGET=14 -DCMAKE_OSX_ARCHITECTURES=${{matrix.arch}} -DCMAKE_BUILD_TYPE=Build
       - name: Build
         run: |
           cmake --build build_${{matrix.arch}}
