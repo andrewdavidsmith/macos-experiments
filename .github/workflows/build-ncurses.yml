@@ -30,8 +30,8 @@ jobs:
         --without-cxx-binding \
         --disable-widec \
         --prefix=/tmp/ncurses_custom \
-        CC=gcc-14 \
-        CXX=c++-14
+        CC=clang \
+        CXX=clang++
         # Copy the fallback defs into place
         cp ${GITHUB_WORKSPACE}/fallback.c ncurses
         # Build and install
