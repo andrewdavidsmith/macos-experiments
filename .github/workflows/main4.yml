@@ -27,3 +27,9 @@ jobs:
     - name: check out the GCC arch options
       run: |
         gcc-14 --help=target
+    - name: check out the LLVM CLANG options
+      run: |
+        $(brew --prefix llvm@18)/bin/clang --help
+    - name: check out the LLVM CLANG arch options
+      run: |
+        $(brew --prefix llvm@18)/bin/clang -print-targets
