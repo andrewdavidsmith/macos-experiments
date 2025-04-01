@@ -26,4 +26,4 @@ jobs:
       run: ls -ltrh .
     - name: check out the GCC arch options
       run: |
-        gcc-14 --help
+        gcc-14 --help=target
