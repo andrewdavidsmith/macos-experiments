@@ -19,6 +19,10 @@ jobs:
         run: |
           ./transferase
           ./transferase query --help
+      - name: check out the file
+        run: |
+          file transferase
+          otool -L transferase
       - name: see cpu info
         run: |
           sysctl machdep.cpu
