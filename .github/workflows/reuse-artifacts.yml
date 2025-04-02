@@ -11,9 +11,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+      - name: Update Homebrew
+        run: brew update
       - name: Configure ${{ matrix.os }}
         run: |
-          cmake -B build_${{matrix.os}} -DCMAKE_VERBOSE_MAKEFILE=on -DCMAKE_CXX_COMPILER=g++-14 -DCMAKE_OSX_DEPLOYMENT_TARGET=14 -DCMAKE_BUILD_TYPE=Build
+          cmake -B build_${{matrix.os}} -DCMAKE_VERBOSE_MAKEFILE=on -DCMAKE_CXX_COMPILER=g++-14 -DCMAKE_BUILD_TYPE=Build
       - name: Build
         run: |
           cmake --build build_${{matrix.os}}
