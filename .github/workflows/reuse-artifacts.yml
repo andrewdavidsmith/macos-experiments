@@ -21,6 +21,7 @@ jobs:
           cmake --build build_${{matrix.os}}
       - name: Look
         run: |
+          uname -m
           ls -lR
       - name: Check the file
         run: |
