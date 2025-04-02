@@ -12,10 +12,13 @@ jobs:
     name: Install pyxfr on ${{matrix.os}}
     runs-on: ${{matrix.os}}
     steps:
-    - name: Install pyxfr
-      run: |
-        python${{matrix.py}} -m venv .venv
-        . .venv/bin/activate
-        pip install numpy
-        pip install -i https://test.pypi.org/simple/ pyxfr
-        python -c "import pyxfr; help(pyxfr)"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{matrix.py}}
+      - name: Install pyxfr
+        run: |
+          python -m venv .venv
+          . .venv/bin/activate
+          pip install numpy
+          pip install -i https://test.pypi.org/simple/ pyxfr
+          python -c "import pyxfr; help(pyxfr)"
