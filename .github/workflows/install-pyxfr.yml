@@ -7,7 +7,7 @@ jobs:
   install-pyxfr:
     strategy:
       matrix:
-        os: [macos-13, macos-14, macos-15]
+        os: [macos-13, macos-14, macos-15, ubuntu-latest, ubuntu-22.04, ubuntu-20.04]
         py: ['3.12', '3.13']
     name: Install pyxfr on ${{matrix.os}}
     runs-on: ${{matrix.os}}
@@ -17,6 +17,7 @@ jobs:
           python-version: ${{matrix.py}}
       - name: Install pyxfr
         run: |
+          python --version
           python -m venv .venv
           . .venv/bin/activate
           pip install numpy
