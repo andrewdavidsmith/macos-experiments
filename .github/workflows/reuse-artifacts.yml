@@ -36,7 +36,7 @@ jobs:
           name: mylib_${{matrix.arch}}
           path: build_${{matrix.arch}}/libmylib.a
   download:
-    needs: upload
+    needs: macos-build
     runs-on: macos-15
     steps:
       - name: Download All Artifacts
