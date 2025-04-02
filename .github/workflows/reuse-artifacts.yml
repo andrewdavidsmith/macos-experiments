@@ -43,5 +43,5 @@ jobs:
           pattern: main_*
           merge-multiple: false
       - run: |
-          ls -R my-artifact
+          ls -R mains
     
