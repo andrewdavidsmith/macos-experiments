@@ -7,7 +7,7 @@ jobs:
   install-pyxfr:
     strategy:
       matrix:
-        os: [macos-13, macos-14, macos-15, ubuntu-latest, ubuntu-22.04]
+        os: [macos-13, macos-14, macos-15]
         py: ['3.12', '3.13']
     name: Install pyxfr on ${{matrix.os}}
     runs-on: ${{matrix.os}}
