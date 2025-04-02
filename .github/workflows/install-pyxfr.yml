@@ -5,7 +5,11 @@ on:
 
 jobs:
   install-pyxfr:
-    runs-on: macos-15
+    strategy:
+      matrix:
+        os: [macos-13, macos-14, macos-15]
+    name: Install pyxfr on ${{matrix.os}}
+    runs-on: ${{matrix.os}}
     steps:
     - name: Install pyxfr
       run: |
