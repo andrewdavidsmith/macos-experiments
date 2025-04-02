@@ -1,0 +1,16 @@
+name: Install pyxfr
+
+on:
+  workflow_dispatch:
+
+jobs:
+  install-pyxfr:
+    runs-on: macos-15
+    steps:
+    - name: Install pyxfr
+      run: |
+        python3 -m venv .venv
+        . .venv/bin/activate
+        pip install numpy
+        pip install -i https://test.pypi.org/simple/ pyxfr
+        python3 -c "import pyxfr; help(pyxfr)"
