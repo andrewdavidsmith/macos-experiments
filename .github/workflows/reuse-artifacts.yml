@@ -44,6 +44,7 @@ jobs:
           merge-multiple: false
       - run: |
           ls -R mains
-          lipo -create mains/main_macos-* -output the_main
-          file the_main
+          file mains/main_macos-*
+          # lipo -create mains/main_macos-* -output the_main
+          # file the_main
     
