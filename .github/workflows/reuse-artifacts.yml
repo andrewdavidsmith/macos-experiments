@@ -1,0 +1,50 @@
+name: Reuse artifacts
+
+on:
+  workflow_dispatch:
+
+jobs:
+  macos-build:
+    strategy:
+      matrix:
+        arch: [arm64, x86_64]
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure ${{ matrix.arch }}
+        run: |
+          cmake -B build_${{matrix.arch}} -DCMAKE_VERBOSE_MAKEFILE=on -DCMAKE_CXX_COMPILER=$(brew --prefix llvm@18)/bin/clang++ -DCMAKE_OSX_DEPLOYMENT_TARGET=14 -DCMAKE_OSX_ARCHITECTURES=${{matrix.arch}} -DCMAKE_BUILD_TYPE=Build
+      - name: Build
+        run: |
+          cmake --build build_${{matrix.arch}}
+      - name: Look
+        run: |
+          ls -lR
+      - name: Check the file
+        run: |
+          file build_${{matrix.arch}}/main
+          file build_${{matrix.arch}}/libmylib.a
+          otool -L build_${{matrix.arch}}/main
+      - name: Upload the binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: main_${{matrix.arch}}
+          path: build_${{matrix.arch}}/main
+      - name: Upload the library
+        uses: actions/upload-artifact@v4
+        with:
+          name: mylib_${{matrix.arch}}
+          path: build_${{matrix.arch}}/libmylib.a
+  download:
+    needs: upload
+    runs-on: macos-15
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: mains
+          pattern: main_*
+          merge-multiple: false
+      - run: |
+          ls -R my-artifact
+    
