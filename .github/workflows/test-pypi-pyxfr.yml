@@ -1,0 +1,22 @@
+name: Test pypi pyxfr
+
+on:
+  workflow_dispatch:
+
+jobs:
+  yes:
+    strategy:
+      matrix:
+        os: [macos-13, macos-14, macos-15, ubuntu-latest, ubuntu-22.04, ubuntu-20.04]
+        python: ['3.12', '3.13']
+    name: "Python ${{ matrix.python }} / ${{ matrix.os }}"
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/setup-python@v5 
+        with:
+          python-version: ${{ matrix.python }} 
+      - run: |
+          python -m venv .venv
+          . .venv/bin/activate
+          pip install pyxfr
+          python -c "from pyxfr import *; help(pyxfr)"
