@@ -1,5 +1,10 @@
 name: Lipo universal binary on macOS
 
+permissions:
+  id-token: write
+  contents: read
+  attestations: write
+
 on:
   workflow_dispatch:
 
@@ -30,6 +35,10 @@ jobs:
         with:
           name: main_${{matrix.arch}}
           path: build_${{matrix.arch}}/main
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: build_${{matrix.arch}}/main
       - name: Upload the library
         uses: actions/upload-artifact@v4
         with:
