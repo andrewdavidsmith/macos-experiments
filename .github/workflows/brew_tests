@@ -1,0 +1,16 @@
+name: Brew tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  macos-build:
+    runs-on: macos-15
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install
+      run: |
+        brew install googletest@1.16.0
+    - name: Check
+      run: |
+        brew info googletest
