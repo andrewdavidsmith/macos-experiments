@@ -1,0 +1,29 @@
+name: New Rxfr
+
+on:
+  workflow_dispatch:
+
+env:
+  MAKEFLAGS: -j4
+
+jobs:
+  build-r:
+    strategy:
+      matrix:
+        os: [macos-15]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Link the Brew prefix paths
+        run: |
+          export MAKEFLAGS="-j4" && \
+          wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh && \
+          sh Miniforge3-Linux-x86_64.sh -bsup ${HOME}/Rxfr_miniforge3 && \
+          export PATH=${HOME}/Rxfr_miniforge3/bin:$PATH && \
+          conda install -y conda-forge::r-base conda-forge::zlib && \
+          mkdir -p ${HOME}/.R && \
+          R CMD config --all | grep CXX17 | \
+            sed "s/CXX17/CXX23/g; s/++17/++23/g" >> ${HOME}/.R/Makevars && \
+          R -e "install.packages(c('Rcpp', 'R6'), repos = 'https://cloud.r-project.org')" && \
+          wget https://github.com/andrewdavidsmith/transferase/releases/download/v0.6.2/Rxfr_0.6.2.tar.gz && \
+          R CMD INSTALL Rxfr_0.6.2.tar.gz && \
+          R -e 'library(Rxfr)'
