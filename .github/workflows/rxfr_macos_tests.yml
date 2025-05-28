@@ -25,6 +25,11 @@ jobs:
       - name: Install R
         run: |
           brew install --cask r
+      - name: See paths
+        run: |
+          echo $PATH
+          eval "$(/usr/libexec/path_helper)"
+          echo $PATH
       - name: Link the Brew prefix paths
         run: |
           echo $(brew --prefix)
