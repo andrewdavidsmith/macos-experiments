@@ -27,6 +27,7 @@ jobs:
           brew install --cask r
       - name: Link the Brew prefix paths
         run: |
+          echo $(brew --prefix)
           sudo ln -s $(brew --prefix)/include /usr/local/include
           sudo ln -s $(brew --prefix)/lib /usr/local/lib
       - name: Install R dependencies
@@ -34,6 +35,5 @@ jobs:
           R -e 'install.packages(c("R6", "Rcpp", "roxygen2"), repos = "https://cloud.r-project.org")'
       - name: Install the package
         run: |
-          # eval "$(/usr/libexec/path_helper)"
           R -e 'install.packages(c("Rxfr_0.6.2.tar.gz"))'
           R -e 'library(Rxfr)'
