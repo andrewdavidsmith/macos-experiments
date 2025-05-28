@@ -13,23 +13,11 @@ jobs:
         os: [macos-15]
     runs-on: ${{ matrix.os }}
     steps:
-      - name: Update Homebrew
+      - name: Update Homebrew and install dependencies
         run: |
           brew update
-      - name: Install OpenSSL
-        run: |
           brew install openssl
-      - name: Get Rxfr
-        run: |
-          wget https://github.com/andrewdavidsmith/transferase/releases/download/v0.6.2/Rxfr_0.6.2.tar.gz
-      - name: Install R
-        run: |
           brew install --cask r
-      - name: See paths
-        run: |
-          echo $PATH
-          eval "$(/usr/libexec/path_helper)"
-          echo $PATH
       - name: Link the Brew prefix paths
         run: |
           echo $(brew --prefix)
@@ -38,6 +26,9 @@ jobs:
       - name: Install R dependencies
         run: |
           R -e 'install.packages(c("R6", "Rcpp", "roxygen2"), repos = "https://cloud.r-project.org")'
+      - name: Get Rxfr
+        run: |
+          wget https://github.com/andrewdavidsmith/transferase/releases/download/v0.6.2/Rxfr_0.6.2.tar.gz
       - name: Install the package
         run: |
           R -e 'install.packages(c("Rxfr_0.6.2.tar.gz"))'
