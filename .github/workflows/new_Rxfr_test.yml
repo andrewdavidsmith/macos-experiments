@@ -16,8 +16,8 @@ jobs:
       - name: Link the Brew prefix paths
         run: |
           export MAKEFLAGS="-j4" && \
-          wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh && \
-          sh Miniforge3-Linux-x86_64.sh -bsup ${HOME}/Rxfr_miniforge3 && \
+          wget https://github.com/conda-forge/miniforge/releases/download/25.3.0-3/Miniforge3-25.3.0-3-MacOSX-arm64.sh && \
+          sh Miniforge3-25.3.0-3-MacOSX-arm64.sh -bsup ${HOME}/Rxfr_miniforge3 && \
           export PATH=${HOME}/Rxfr_miniforge3/bin:$PATH && \
           conda install -y conda-forge::r-base conda-forge::zlib && \
           mkdir -p ${HOME}/.R && \
