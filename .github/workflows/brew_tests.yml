@@ -5,12 +5,12 @@ on:
 
 env:
   NCURSES_VER: 6.5
-  NCURSES_FLAGS: --with-fallbacks=xterm \
-          --disable-database \
-          --enable-overwrite \
-          --with-normal \
-          --without-gpm \
-          --without-cxx-binding \
+  NCURSES_FLAGS: --with-fallbacks=xterm
+          --disable-database
+          --enable-overwrite
+          --with-normal
+          --without-gpm
+          --without-cxx-binding
           --disable-widec
 
 jobs:
