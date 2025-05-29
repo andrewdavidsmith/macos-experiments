@@ -12,6 +12,12 @@ env:
           --without-gpm
           --without-cxx-binding
           --disable-widec
+  NCURSES_BUILD_FLAGS: -Wall
+          -O2
+          -DNDEBUG
+          -ffunction-sections
+          -fdata-sections
+          -mmacosx-version-min=13
 
 jobs:
   macos-build:
@@ -21,3 +27,4 @@ jobs:
     - name: ECHO
       run: |
         echo "${NCURSES_FLAGS}"
+        echo "${NCURSES_BUILD_FLAGS}"
