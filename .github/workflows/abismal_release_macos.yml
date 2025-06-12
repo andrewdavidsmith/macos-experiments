@@ -28,18 +28,19 @@ jobs:
             --disable-ref-cache \
             LDADD="-L/usr/local/lib"
           make CFLAGS="-Wall -O2 -fvisibility=hidden" libhts.a
-          sudo mkdir -p /opt/test/lib
-          sudo mkdir -p /opt/test/include
-          sudo cp libhts.a /opt/test/lib/
-          sudo cp -r ../htslib /opt/test/include/
-          sudo cp $(brew --prefix zlib)/lib/libz.a /opt/test/lib
-          sudo cp -r $(brew --prefix zlib)/include/* /opt/test/include
-          sudo cp $(brew --prefix gsl)/lib/*.a /opt/test/lib
-          sudo cp -r $(brew --prefix gsl)/include/* /opt/test/include
+          sudo mkdir -p /opt/abismal/lib
+          sudo mkdir -p /opt/abismal/include
+          sudo cp libhts.a /opt/abismal/lib/
+          sudo cp -r ../htslib /opt/abismal/include/
+          sudo cp $(brew --prefix zlib)/lib/libz.a /opt/abismal/lib
+          sudo cp -r $(brew --prefix zlib)/include/* /opt/abismal/include
+          sudo cp $(brew --prefix gsl)/lib/*.a /opt/abismal/lib
+          sudo cp -r $(brew --prefix gsl)/include/* /opt/abismal/include
           git clone --recursive https://github.com/smithlabcode/abismal.git
           cd abismal
           ./autogen.sh
           mkdir build && cd build
-          ../configure LDFLAGS="-L/opt/test/lib" CPPFLAGS="-I/opt/test/include"
+          ../configure LDFLAGS="-L/opt/abismal/lib" CPPFLAGS="-I/opt/abismal/include"
           make -j4
-          ls -l
+          ls -lh
+          otool -L abismal
