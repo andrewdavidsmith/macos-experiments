@@ -52,6 +52,7 @@ jobs:
         run: |
           mv abismal abismal_$(uname -m)
           ls -lh
+          pwd
       - name: Upload the binary
         uses: actions/upload-artifact@v4
         with:
