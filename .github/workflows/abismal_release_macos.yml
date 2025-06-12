@@ -37,7 +37,9 @@ jobs:
           sudo cp $(brew --prefix gsl)/lib/*.a /opt/test/lib
           sudo cp -r $(brew --prefix gsl)/include/* /opt/test/include
           ls -lR /opt/test
-          # git clone --recursive https://github.com/smithlabcode/abismal.git
-          # cd abismal
-          # ./autogen.sh
-          # mkdir build && cd build        
+          git clone --recursive https://github.com/smithlabcode/abismal.git
+          cd abismal
+          ./autogen.sh
+          mkdir build && cd build
+          ../configure LDFLAGS="-L/opt/test/lib" CPPFLAGS="-I/opt/test/include"
+          make -j4
