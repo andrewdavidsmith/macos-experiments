@@ -47,7 +47,7 @@ jobs:
       - name: Get version number
         id: get-vn
         run: |
-          echo "3.2.4" >> "$GITHUB_OUTPUT"
+          echo "vn=3.2.4" >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Upload the binary
