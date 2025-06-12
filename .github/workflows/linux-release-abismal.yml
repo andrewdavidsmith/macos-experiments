@@ -35,7 +35,7 @@ jobs:
             make CFLAGS="-Wall -O2 -fvisibility=hidden" libhts.a && \
             cp libhts.a /usr/local/lib/ && \
             cp -r ../htslib /usr/local/include/ && \
-            cd / && \
+            cd /workspace && \
             git clone --recursive https://github.com/smithlabcode/abismal.git && \
             cd abismal && \
             ./autogen.sh && \
@@ -56,4 +56,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: abismal-${{ steps.get-vn.outputs.vn }}-Linux
-          path: /abismal/build/abismal
+          path: abismal/build/abismal
