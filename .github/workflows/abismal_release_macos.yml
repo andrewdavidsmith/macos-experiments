@@ -60,7 +60,7 @@ jobs:
           path: |
             abismal/build/abismal_${{ steps.vars.outputs.arch }}
   package:
-    needs: make abismal lipo binary
+    needs: build-macos-release
     runs-on: macos-15
     steps:
       - name: Download artifacts
