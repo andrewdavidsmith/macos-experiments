@@ -19,6 +19,7 @@ jobs:
           ls -lR $(brew --prefix gsl)
           git clone --recursive https://github.com/samtools/htslib.git
           cd htslib
+          autoreconf -i
           ../configure \
             --disable-bz2 \
             --disable-libcurl \
