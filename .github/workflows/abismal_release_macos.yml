@@ -50,7 +50,7 @@ jobs:
           otool -L abismal
       - name: Rename the binary
         run: |
-          mv abismal abismal_$(uname -m)
+          mv abismal/build/abismal abismal_$(uname -m)
           ls -lh
           pwd
       - name: Upload the binary
@@ -58,7 +58,7 @@ jobs:
         with:
           name: abismal-${{ steps.vars.outputs.vn }}-${{ matrix.os }}-${{ steps.vars.outputs.arch }}
           path: |
-            abismal/build/abismal_${{ steps.vars.outputs.arch }}
+            abismal_${{ steps.vars.outputs.arch }}
   package:
     needs: build-macos-releases
     runs-on: macos-15
