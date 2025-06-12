@@ -3,9 +3,6 @@ name: Abismal Release (macOS)
 on:
   workflow_dispatch:
 
-env:
-  CONTAINER: andrewdavidsmith/transferase-build
-
 jobs:
   build-macos-releases:
     strategy:
@@ -35,6 +32,7 @@ jobs:
             --disable-libcurl \
             --disable-lzma \
             --disable-ref-cache \
+            --without-libdeflate \
             LDADD="-L/usr/local/lib"
           make CFLAGS="-Wall -O2 -fvisibility=hidden" libhts.a
           sudo cp libhts.a /opt/abismal/lib
