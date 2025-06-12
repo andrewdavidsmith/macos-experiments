@@ -1,0 +1,17 @@
+name: Abismal Release (macOS)
+
+on:
+  workflow_dispatch:
+
+env:
+  CONTAINER: andrewdavidsmith/transferase-build
+
+jobs:
+  linux-releases:
+    runs-on: macos-15
+    steps:
+      - name: Install dependencies
+        run: |
+          brew install zlib gsl
+          brew --prefix zlib
+          brew --prefix gsl
