@@ -54,7 +54,7 @@ jobs:
           ls -lh
           pwd
       - name: Get version number
-        id: get-vn
+        id: vars
         run: |
           echo "vn=3.2.4" >> "$GITHUB_OUTPUT"
           uname -m | awk '{print "arch="$0}' >> "$GITHUB_OUTPUT"
