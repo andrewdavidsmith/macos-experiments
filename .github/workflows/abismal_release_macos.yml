@@ -39,6 +39,7 @@ jobs:
           make CFLAGS="-Wall -O2 -fvisibility=hidden" libhts.a
           sudo cp libhts.a /opt/abismal/lib
           sudo cp -r ../htslib /opt/abismal/include
+          ls -lR /opt/abismal
       - name: Build abismal
         run: |
           git clone --recursive https://github.com/smithlabcode/abismal.git
