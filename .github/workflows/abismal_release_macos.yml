@@ -7,8 +7,11 @@ env:
   CONTAINER: andrewdavidsmith/transferase-build
 
 jobs:
-  linux-releases:
-    runs-on: macos-15
+  build-macos-releases:
+    strategy:
+      matrix:
+        os: [macos-13, macos-14]
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Make abismal dependency directories
         run: |
@@ -46,3 +49,40 @@ jobs:
           make -j4
           ls -lh
           otool -L abismal
+      - name: Rename the binary
+        run: |
+          mv abismal abismal_$(uname -m)
+          ls -lh
+      - name: Upload the binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: abismal-${{ steps.vars.outputs.vn }}-${{ matrix.os }}-${{ steps.vars.outputs.arch }}
+          path: |
+            abismal/build/abismal_${{ steps.vars.outputs.arch }}
+  package:
+    needs: make abismal lipo binary
+    runs-on: macos-15
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: binaries
+          pattern: abismal-*
+          merge-multiple: false
+      - name: Create universal binary
+        run: |
+          ls -lR binaries
+          lipo -create \
+          binaries/abismal-*/abismal_* \
+          -output abismal
+      - name: Get version number
+        id: get-vn
+        run: |
+          echo "vn=3.2.4" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Upload the package files
+        uses: actions/upload-artifact@v4
+        with:
+          name: abismal-${{ steps.get-vn.outputs.vn }}-macOS
+          path: abismal
