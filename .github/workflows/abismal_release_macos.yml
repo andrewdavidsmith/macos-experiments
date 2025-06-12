@@ -22,7 +22,7 @@ jobs:
           sudo cp -r $(brew --prefix zlib)/include/* /opt/abismal/include
           sudo cp -r $(brew --prefix gsl)/include/* /opt/abismal/include
       - name: Build and install HTSlib
-      - run: |
+        run: |
           git clone --recursive https://github.com/samtools/htslib.git
           cd htslib
           autoreconf -i
@@ -37,7 +37,7 @@ jobs:
           sudo cp libhts.a /opt/abismal/lib
           sudo cp -r ../htslib /opt/abismal/include
       - name: Build abismal
-      - run: |
+        run: |
           git clone --recursive https://github.com/smithlabcode/abismal.git
           cd abismal
           ./autogen.sh
