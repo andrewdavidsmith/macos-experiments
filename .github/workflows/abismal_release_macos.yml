@@ -15,3 +15,5 @@ jobs:
           brew install zlib gsl
           brew --prefix zlib
           brew --prefix gsl
+          ls -lR $(brew --prefix zlib)
+          ls -lR $(brew --prefix gsl)
