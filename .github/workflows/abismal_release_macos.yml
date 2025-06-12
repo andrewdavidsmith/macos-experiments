@@ -32,7 +32,11 @@ jobs:
           sudo mkdir -p /opt/test/include
           sudo cp libhts.a /opt/test/lib/
           sudo cp -r ../htslib /opt/test/include/
-          ls -lR /opt/
+          sudo cp $(brew --prefix zlib)/lib/libz.a /opt/test/lib
+          sudo cp -r $(brew --prefix zlib)/include/* /opt/test/include
+          sudo cp $(brew --prefix gsl)/lib/*.a /opt/test/lib
+          sudo cp -r $(brew --prefix gsl)/include/* /opt/test/include
+          ls -lR /opt/test
           # git clone --recursive https://github.com/smithlabcode/abismal.git
           # cd abismal
           # ./autogen.sh
