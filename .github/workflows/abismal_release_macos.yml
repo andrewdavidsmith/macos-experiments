@@ -10,13 +10,19 @@ jobs:
   linux-releases:
     runs-on: macos-15
     steps:
-      - name: Install dependencies
+      - name: Make abismal dependency directories
+        run: |
+          sudo mkdir -p /opt/abismal/lib
+          sudo mkdir -p /opt/abismal/include
+      - name: Emplace dependency headers and static libs
         run: |
           brew install zlib gsl automake
-          brew --prefix zlib
-          brew --prefix gsl
-          ls -lR $(brew --prefix zlib)
-          ls -lR $(brew --prefix gsl)
+          sudo cp $(brew --prefix zlib)/lib/*.a /opt/abismal/lib
+          sudo cp $(brew --prefix gsl)/lib/*.a /opt/abismal/lib
+          sudo cp -r $(brew --prefix zlib)/include/* /opt/abismal/include
+          sudo cp -r $(brew --prefix gsl)/include/* /opt/abismal/include
+      - name: Build and install HTSlib
+      - run: |
           git clone --recursive https://github.com/samtools/htslib.git
           cd htslib
           autoreconf -i
@@ -28,14 +34,10 @@ jobs:
             --disable-ref-cache \
             LDADD="-L/usr/local/lib"
           make CFLAGS="-Wall -O2 -fvisibility=hidden" libhts.a
-          sudo mkdir -p /opt/abismal/lib
-          sudo mkdir -p /opt/abismal/include
-          sudo cp libhts.a /opt/abismal/lib/
-          sudo cp -r ../htslib /opt/abismal/include/
-          sudo cp $(brew --prefix zlib)/lib/libz.a /opt/abismal/lib
-          sudo cp -r $(brew --prefix zlib)/include/* /opt/abismal/include
-          sudo cp $(brew --prefix gsl)/lib/*.a /opt/abismal/lib
-          sudo cp -r $(brew --prefix gsl)/include/* /opt/abismal/include
+          sudo cp libhts.a /opt/abismal/lib
+          sudo cp -r ../htslib /opt/abismal/include
+      - name: Build abismal
+      - run: |
           git clone --recursive https://github.com/smithlabcode/abismal.git
           cd abismal
           ./autogen.sh
