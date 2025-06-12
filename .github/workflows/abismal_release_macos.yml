@@ -20,6 +20,7 @@ jobs:
           git clone --recursive https://github.com/samtools/htslib.git
           cd htslib
           autoreconf -i
+          mkdir build && cd build
           ../configure \
             --disable-bz2 \
             --disable-libcurl \
