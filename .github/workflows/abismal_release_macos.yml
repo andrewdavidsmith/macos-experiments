@@ -17,3 +17,21 @@ jobs:
           brew --prefix gsl
           ls -lR $(brew --prefix zlib)
           ls -lR $(brew --prefix gsl)
+          git clone --recursive https://github.com/samtools/htslib.git
+          cd htslib
+          ../configure \
+            --disable-bz2 \
+            --disable-libcurl \
+            --disable-lzma \
+            --disable-ref-cache \
+            LDADD="-L/usr/local/lib"
+          make CFLAGS="-Wall -O2 -fvisibility=hidden" libhts.a
+          sudo mkdir -p /opt/test/lib
+          sudo mkdir -p /opt/test/include
+          cp libhts.a /opt/test/lib/
+          cp -r ../htslib /opt/test/include/
+          ls -lR /opt/
+          # git clone --recursive https://github.com/smithlabcode/abismal.git
+          # cd abismal
+          # ./autogen.sh
+          # mkdir build && cd build        
