@@ -23,6 +23,7 @@ jobs:
       # Clone and build on macOS
       run: |
         wget smithlabresearch.org/data/abismal
+        chmod +x abismal
         ./abismal
         # git clone --recursive https://github.com/smithlabcode/abismal.git
         # cd abismal
