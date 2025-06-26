@@ -14,4 +14,4 @@ jobs:
         brew install libdeflate
     - name: See what was installed
       run: |
-        find /usr -name \*deflate\*
+        sudo find /usr -name \*deflate\*
