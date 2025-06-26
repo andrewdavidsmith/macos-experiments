@@ -1,0 +1,17 @@
+name: libdeflate static on macOS
+
+on:
+  workflow_dispatch:
+
+jobs:
+   libdeflate-static:
+    runs-on: macos-15
+    steps:
+    - name: Update Homebrew
+      run: brew update
+    - name: Install dependencies
+      run: |
+        brew install libdeflate
+    - name: See what was installed
+      run: |
+        find /usr -name \*deflate\*
