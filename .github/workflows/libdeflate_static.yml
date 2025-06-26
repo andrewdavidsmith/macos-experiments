@@ -12,4 +12,4 @@ jobs:
     - name: Install dependencies
       run: |
         brew install libdeflate
-        sudo find / -name \*deflate\*
+        sudo find / -name \*deflate\*dyld
