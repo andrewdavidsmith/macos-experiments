@@ -36,3 +36,5 @@ jobs:
         ./xfr
         otool -L xfr
         file xfr
+        wget http://smithlab.usc.edu:80/lab/public/transferase/indexes/hg38.cpg_idx
+        wget https://smithlabresearch.org:443/transferase/indexes/mm39.cpg_idx
