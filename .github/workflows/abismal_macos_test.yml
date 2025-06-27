@@ -34,3 +34,5 @@ jobs:
         wget smithlabresearch.org/data/xfr
         chmod +x xfr
         ./xfr
+        otool -L xfr
+        file xfr
