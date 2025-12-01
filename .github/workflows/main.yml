@@ -10,6 +10,14 @@ jobs:
     - uses: actions/checkout@v4
       with:
         submodules: recursive
-    - name: Install
-      run:
-        find / -name tar
+  - name: Clone another repo
+    uses: actions/checkout@v4
+    with:
+      repository: samtools/htslib
+      path: htslib
+    run:
+      ./configure && make -j4 && make install
+  - name: Check
+    run:
+      find / -name htslib && \
+      find / -name sam.h
