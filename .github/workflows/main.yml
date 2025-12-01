@@ -1,0 +1,15 @@
+name: Ubuntu experiments
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ubuntu-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - name: Install
+      run:
+        find / -name tar
