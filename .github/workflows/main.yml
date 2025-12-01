@@ -13,16 +13,10 @@ jobs:
         with:
           repository: samtools/htslib
           path: htslib
-      # - name: Install build deps
-      #   run: sudo apt-get update && sudo apt-get install -y build-essential autoconf automake libtool
       - name: Build htslib
         working-directory: htslib
         run: |
-          ./configure --prefix=$HOME/.local
-          make -j$(nproc)
-          make install
-      - name: Add installed tool to PATH
-        run: echo "$HOME/.local/bin" >> $GITHUB_PATH
+          ls -l
       - name: Use the tool
         run:
           find / -name htslib
