@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
-        run: sudo apt-get install -y liblzma-dev
+        run: sudo apt-get install -y libcurl4-gnutls-dev libdeflate-dev liblzma-dev zlib1g-dev
       - name: Build htslib
         run: |
           git clone --recursive https://github.com/samtools/htslib.git && \
