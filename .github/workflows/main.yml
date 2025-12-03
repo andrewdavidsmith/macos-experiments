@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: apt-get install -y liblzma-dev
       - name: Build htslib
         run: |
           git clone --recursive https://github.com/samtools/htslib.git && \
