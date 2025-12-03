@@ -18,4 +18,4 @@ jobs:
           sudo make install
       - name: Use the tool
         run:
-          find / -name htslib
+          sudo find / -name libhts.a
