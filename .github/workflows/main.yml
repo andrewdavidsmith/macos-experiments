@@ -8,15 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Clone public dependency repo
-        uses: actions/checkout@v4
-        with:
-          repository: samtools/htslib
-          path: htslib
       - name: Build htslib
-        working-directory: htslib
         run: |
-          ls -l
+          git clone --recursive git@github.com:samtools/htslib.git && \
+          cd htslib && \
+          make -j4
       - name: Use the tool
         run:
           find / -name htslib
