@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build htslib
         run: |
-          git clone --recursive git@github.com:samtools/htslib.git && \
+          git clone --recursive https://github.com/samtools/htslib.git && \
           cd htslib && \
           make -j4
       - name: Use the tool
