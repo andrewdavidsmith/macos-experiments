@@ -33,7 +33,7 @@ jobs:
       - name: Upload the binary
         uses: actions/upload-artifact@v4
         with:
-          name: main_${{matrix.os}}
+          name: main_${{matrix.os}}_$GITHUB_SHA
           path: build_${{matrix.os}}/main
   download:
     needs: macos-build
@@ -43,7 +43,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: mains
-          pattern: main_*
+          pattern: main_*_$GITHUB_SHA
           merge-multiple: false
       - run: |
           ls -R mains
