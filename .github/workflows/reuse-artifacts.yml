@@ -28,6 +28,8 @@ jobs:
           file build_${{matrix.os}}/main
           file build_${{matrix.os}}/libmylib.a
           otool -L build_${{matrix.os}}/main
+          git_hash=$(git rev-parse --short "$GITHUB_SHA")
+          echo $(git_hash)
       - name: Upload the binary
         uses: actions/upload-artifact@v4
         with:
