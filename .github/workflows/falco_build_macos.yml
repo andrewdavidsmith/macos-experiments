@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Get falco dependencies
         run: |
-          brew install zlib install isa-l samtools
+          brew install zlib isa-l samtools
       - name: Clone and build
         run: |
           git clone https://github.com/smithlabresearch/falco.git
