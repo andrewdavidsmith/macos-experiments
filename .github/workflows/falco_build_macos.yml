@@ -1,0 +1,21 @@
+name: Falco Release (macOS)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-macos:
+    strategy:
+      matrix:
+        os: [macos-26]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Get falco dependencies
+        run: |
+          brew install zlib install isa-l samtools
+      - name: Clone and build
+        run: |
+          git clone https://github.com/smithlabresearch/falco.git
+          cd falco
+          git checkout falco2
+          cmake -B build -DUSE_ISAL=on -DCMAKE_CXX_COMPILER=on -DCMAKE_BUILD_TYPE=Release
