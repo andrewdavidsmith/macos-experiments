@@ -18,4 +18,4 @@ jobs:
           git clone https://github.com/smithlabcode/falco.git
           cd falco
           git checkout falco2
-          cmake -B build -DUSE_ISAL=on -DCMAKE_CXX_COMPILER=on -DCMAKE_BUILD_TYPE=Release
+          cmake -B build -DUSE_ISAL=on -DCMAKE_CXX_COMPILER=g++-15 -DCMAKE_BUILD_TYPE=Release
