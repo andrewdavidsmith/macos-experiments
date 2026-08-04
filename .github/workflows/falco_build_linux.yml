@@ -26,7 +26,8 @@ jobs:
           cd falco
           awk '/^  VERSION [0-9.]+$/ {print "vn="$NF}' CMakeLists.txt >> "$GITHUB_OUTPUT"
           git rev-parse --short "$GITHUB_SHA" | awk '{print "hash="$0}' >> "$GITHUB_OUTPUT"
-          rm -rf /workspace/falco
+          cd ..
+          rm -rf falco
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Configure and build
