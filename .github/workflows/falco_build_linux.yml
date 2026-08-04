@@ -22,6 +22,9 @@ jobs:
       - name: Get version number
         id: get-vn
         run: |
+          git clone https://github.com/smithlabcode/falco.git
+          cd falco
+          git checkout falco2
           awk '/^  VERSION [0-9.]+$/ {print "vn="$NF}' CMakeLists.txt >> "$GITHUB_OUTPUT"
           git rev-parse --short "$GITHUB_SHA" | awk '{print "hash="$0}' >> "$GITHUB_OUTPUT"
         env:
