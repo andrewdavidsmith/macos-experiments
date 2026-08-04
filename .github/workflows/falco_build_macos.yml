@@ -58,7 +58,7 @@ jobs:
           cd falco
           cmake -B build -DPACKAGE=on \
           -DCMAKE_VERBOSE_MAKEFILE=on \
-          -DCMAKE_CXX_COMPILER=g++-16 \
+          -DCMAKE_CXX_COMPILER=g++-15 \
           -DUSE_ISAL=on \
           -DHTSLIB_ROOT=/opt/falco \
           -DISAL_ROOT=/opt/falco \
@@ -101,7 +101,7 @@ jobs:
           -DPACKAGE=on \
           -DZLIB_ROOT=$(brew --prefix zlib) \
           -DCMAKE_CXX_FLAGS="-I$(brew --prefix)/include -lcurl -llzma -lbz2" \
-          -DCMAKE_CXX_COMPILER=g++-16 \
+          -DCMAKE_CXX_COMPILER=g++-15 \
           -DCMAKE_BUILD_TYPE=Build
       - name: Download artifacts
         uses: actions/download-artifact@v8
