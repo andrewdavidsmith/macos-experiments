@@ -106,6 +106,13 @@ jobs:
           -DCMAKE_CXX_COMPILER=g++-15 \
           -DCMAKE_BUILD_TYPE=Build
           cmake --build build -j4
+      - name: Get version number
+        id: get-vn
+        run: |
+          cd falco
+          awk '/^  VERSION [0-9.]+$/ {print "vn="$NF}' CMakeLists.txt >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ github.token }}
       - name: Download artifacts
         uses: actions/download-artifact@v8
         with:
@@ -119,19 +126,17 @@ jobs:
           -output falco/build/falco
       - name: Package
         run: |
+          export OUTPUT=falco-${{ steps.get-vn.outputs.vn }}-macOS
+          mkdir /workspace/${OUTPUT}
           ls -lR
           cd falco
           cpack -B build --config build/CPackConfig.cmake
-      - name: Get version number
-        id: get-vn
-        run: |
-          cd falco
-          awk '/^  VERSION [0-9.]+$/ {print "vn="$NF}' CMakeLists.txt >> "$GITHUB_OUTPUT"
-        env:
-          GH_TOKEN: ${{ github.token }}
+          mv build/falco-${{ steps.get-vn.outputs.vn }}-macOS.sh /workspace/${OUTPUT}
+          mv build/falco-${{ steps.get-vn.outputs.vn }}-macOS.tar.gz /workspace/${OUTPUT}
+          tar -C /workspace -zcf /workspace/${OUTPUT}.tgz ${OUTPUT}
       - name: Upload the package files
         uses: actions/upload-artifact@v7
         with:
           name: falco-${{ steps.get-vn.outputs.vn }}-macOS.tgz
-          path: falco/build/falco-${{ steps.get-vn.outputs.vn }}-macOS.*
+          path: falco-${{ steps.get-vn.outputs.vn }}-macOS.tgz
           archive: false
