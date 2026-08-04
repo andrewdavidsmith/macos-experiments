@@ -22,8 +22,11 @@ jobs:
       - name: Get version number
         id: get-vn
         run: |
+          git clone https://github.com/smithlabcode/falco.git
+          cd falco
           awk '/^  VERSION [0-9.]+$/ {print "vn="$NF}' CMakeLists.txt >> "$GITHUB_OUTPUT"
           git rev-parse --short "$GITHUB_SHA" | awk '{print "hash="$0}' >> "$GITHUB_OUTPUT"
+          rm -rf /workspace/falco
         env:
           GH_TOKEN: ${{ github.token }}
       - name: Configure and build
@@ -83,11 +86,12 @@ jobs:
                 -DCMAKE_BUILD_TYPE=Release && \
             cmake --build build -j4 && \
             cpack -B build --config build/CPackConfig.cmake
-            mkdir /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
-            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
-            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.deb /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
-            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.sh /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
-            tar -zcf /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files.tgz /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
+            export OUTPUT=/workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux
+            mkdir ${OUTPUT}
+            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz ${OUTPUT}
+            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.deb ${OUTPUT}
+            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.sh ${OUTPUT}
+            tar -zcf ${OUTPUT}.tgz ${OUTPUT}
             cpack -B build --config build/CPackSourceConfig.cmake
             mv build/falco-${{ steps.get-vn.outputs.vn }}-Source.tar.gz /workspace
         run: |
@@ -101,6 +105,6 @@ jobs:
       - name: Upload the package files
         uses: actions/upload-artifact@v7
         with:
-          name: falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files.tgz
-          path: falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files.tgz
+          name: falco-${{ steps.get-vn.outputs.vn }}-Linux.tgz
+          path: falco-${{ steps.get-vn.outputs.vn }}-Linux.tgz
           archive: false
