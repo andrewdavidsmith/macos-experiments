@@ -75,6 +75,8 @@ jobs:
             cp libhts.a /usr/local/lib/ && \
             cp -r ../htslib /usr/local/include/ && \
             cd /workspace && \
+            git clone https://github.com/smithlabcode/falco.git && \
+            cd falco && git checkout falco2 && \
             cmake -B build \
                 -DPACKAGE=on \
                 -DCMAKE_VERBOSE_MAKEFILE=on \
