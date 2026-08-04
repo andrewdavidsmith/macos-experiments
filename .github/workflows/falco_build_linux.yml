@@ -37,7 +37,7 @@ jobs:
             ./configure --prefix=/usr/local && \
             make -j4 && \
             make install && \
-            cd .. && \
+            cd /workspace && \
             git clone https://github.com/intel/isa-l.git && \
             cd isa-l && \
             cmake -B build \
@@ -49,7 +49,7 @@ jobs:
                 -DCMAKE_BUILD_TYPE=Release && \
             cmake --build build -j4 && \
             cmake --install build --prefix=/usr/local && \
-            cd ../ && \
+            cd /workspace && \
             git clone https://github.com/ebiggers/libdeflate.git && \
             cd libdeflate && \
             cmake -B build \
@@ -84,12 +84,12 @@ jobs:
             cmake --build build -j4 && \
             cpack -B build --config build/CPackConfig.cmake
             mkdir /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
-            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
-            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.deb /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
-            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.sh /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
+            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
+            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.deb /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
+            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.sh /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
             tar -zcf /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files.tgz /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
             cpack -B build --config build/CPackSourceConfig.cmake
-            cp build/falco-${{ steps.get-vn.outputs.vn }}-Source.tar.gz /workspace/
+            mv build/falco-${{ steps.get-vn.outputs.vn }}-Source.tar.gz /workspace
         run: |
           docker exec build-container bash -c "$SCRIPT"
       - name: Upload the source archive
