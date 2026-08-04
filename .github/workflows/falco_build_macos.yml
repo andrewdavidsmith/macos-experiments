@@ -115,14 +115,16 @@ jobs:
         run: |
           lipo -create \
           binaries/falco-*/falco_* \
-          -output build/falco
+          -output falco/build/falco
       - name: Package
         run: |
           ls -lR
+          cd falco
           cpack -B build --config build/CPackConfig.cmake
       - name: Get version number
         id: get-vn
         run: |
+          cd falco
           awk '/^  VERSION [0-9.]+$/ {print "vn="$NF}' CMakeLists.txt >> "$GITHUB_OUTPUT"
         env:
           GH_TOKEN: ${{ github.token }}
