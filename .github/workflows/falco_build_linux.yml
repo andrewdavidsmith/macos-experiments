@@ -1,0 +1,94 @@
+name: Package (Linux)
+
+on:
+  workflow_dispatch:
+
+env:
+  CONTAINER: andrewdavidsmith/transferase-build
+
+jobs:
+  linux-releases:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start docker container
+        # Pull the container, run it in detached mode, mount the workspace
+        run: |
+          docker pull $CONTAINER
+          docker run --name build-container \
+          -d -v ${{ github.workspace }}:/workspace $CONTAINER tail -f /dev/null
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
+      - name: Get version number
+        id: get-vn
+        run: |
+          awk '/^  VERSION [0-9.]+$/ {print "vn="$NF}' CMakeLists.txt >> "$GITHUB_OUTPUT"
+          git rev-parse --short "$GITHUB_SHA" | awk '{print "hash="$0}' >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Configure and build
+        env:
+          SCRIPT: |
+            export DEBIAN_FRONTEND=noninteractive && \
+            apt-get update && apt-get install --no-install-recommends -y automake wget && \
+            wget -nv https://www.nasm.us/pub/nasm/releasebuilds/3.01rc9/nasm-3.01rc9.tar.gz && \
+            tar -xf nasm-3.01rc9.tar.gz && \
+            cd nasm-3.01rc9 && \
+            ./configure --prefix=/usr/local && \
+            make -j4 && \
+            make install && \
+            cd .. && \
+            git clone https://github.com/intel/isa-l.git && \
+            cd isa-l && \
+            cmake -B build \
+                -DISAL_BUILD_TESTS=off \
+                -DISAL_BUILD_PERF_TESTS=off \
+                -DISAL_BUILD_FUZZ_TESTS=off \
+                -DISAL_BUILD_ISAL_SHIM=off \
+                -DBUILD_SHARED_LIBS=off \
+                -DCMAKE_BUILD_TYPE=Release && \
+            cmake --build build -j4 && \
+            cmake --install build --prefix=/usr/local && \
+            cd ../ && \
+            git clone https://github.com/ebiggers/libdeflate.git && \
+            cd libdeflate && \
+            cmake -B build \
+                -DLIBDEFLATE_BUILD_GZIP=off \
+                -DLIBDEFLATE_BUILD_TESTS=off \
+                -DLIBDEFLATE_BUILD_SHARED_LIB=off \
+                -DCMAKE_VERBOSE_MAKEFILE=on \
+                -DCMAKE_BUILD_TYPE=Release && \
+            cmake --build build -j4 && \
+            cmake --install build --prefix=/usr/local && \
+            cd .. && \
+            git clone --recursive https://github.com/samtools/htslib.git && \
+            cd htslib && \
+            autoreconf -i && \
+            mkdir build && cd build && \
+            ../configure \
+                --disable-bz2 \
+                --disable-libcurl \
+                --disable-lzma \
+                --disable-ref-cache \
+                --with-libdeflate && \
+            make -j4 CFLAGS="-Wall -O2 -fvisibility=hidden" libhts.a && \
+            cp libhts.a /usr/local/lib/ && \
+            cp -r ../htslib /usr/local/include/ && \
+            cd /workspace && \
+            cmake -B build \
+                -DPACKAGE=on \
+                -DCMAKE_VERBOSE_MAKEFILE=on \
+                -DUSE_ISAL=on \
+                -DCMAKE_BUILD_TYPE=Release && \
+            cmake --build build -j4 && \
+            cpack -B build --config build/CPackConfig.cmake
+            cpack -B build --config build/CPackSourceConfig.cmake
+            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz .
+            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.deb .
+        run: |
+          docker exec build-container bash -c "$SCRIPT"
+      - name: Upload the binary
+        uses: actions/upload-artifact@v7
+        with:
+          name: falco-${{ steps.get-vn.outputs.vn }}-${{ steps.get-vn.outputs.hash }}-Linux
+          path: falco-${{ steps.get-vn.outputs.vn }}-${{ steps.get-vn.outputs.hash }}-Linux
