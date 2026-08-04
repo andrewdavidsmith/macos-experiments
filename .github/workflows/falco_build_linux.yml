@@ -90,8 +90,10 @@ jobs:
             cmake --build build -j4 && \
             cpack -B build --config build/CPackConfig.cmake
             cpack -B build --config build/CPackSourceConfig.cmake
-            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz .
-            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.deb .
+            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz /workspace
+            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.deb /workspace
+            cp build/falco-${{ steps.get-vn.outputs.vn }}-Source.tar.gz /workspace
+            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.sh /workspace
         run: |
           docker exec build-container bash -c "$SCRIPT"
       - name: Upload the source archive
@@ -111,4 +113,10 @@ jobs:
         with:
           name: falco-${{ steps.get-vn.outputs.vn }}-Linux.deb
           path: falco-${{ steps.get-vn.outputs.vn }}-Linux.deb
+          archive: false
+      - name: Upload the package in STGZ format
+        uses: actions/upload-artifact@v7
+        with:
+          name: falco-${{ steps.get-vn.outputs.vn }}-Linux.sh
+          path: falco-${{ steps.get-vn.outputs.vn }}-Linux.sh
           archive: false
