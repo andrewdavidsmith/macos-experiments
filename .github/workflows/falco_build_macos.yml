@@ -133,3 +133,4 @@ jobs:
         with:
           name: falco-${{ steps.get-vn.outputs.vn }}-macOS.tgz
           path: falco/build/falco-${{ steps.get-vn.outputs.vn }}-macOS.*
+          archive: false
