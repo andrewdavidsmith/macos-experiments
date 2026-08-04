@@ -111,9 +111,8 @@ jobs:
           merge-multiple: false
       - name: Create universal binaries
         run: |
-          ls -lR
           lipo -create \
-          binaries/falco-* \
+          binaries/falco-*/falco_* \
           -output build/falco
       - name: Package
         run: |
