@@ -131,5 +131,5 @@ jobs:
       - name: Upload the package files
         uses: actions/upload-artifact@v7
         with:
-          name: falco-${{ steps.get-vn.outputs.vn }}-macOS
-          path: build/falco-${{ steps.get-vn.outputs.vn }}*
+          name: falco-${{ steps.get-vn.outputs.vn }}-macOS.tgz
+          path: falco/build/falco-${{ steps.get-vn.outputs.vn }}-macOS.*
