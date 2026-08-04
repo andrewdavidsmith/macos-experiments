@@ -92,7 +92,7 @@ jobs:
             mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz /workspace/${OUTPUT}
             mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.deb /workspace/${OUTPUT}
             mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.sh /workspace/${OUTPUT}
-            tar -C /workspace -zcf ${OUTPUT}.tgz ${OUTPUT}
+            tar -C /workspace -zcf /workspace/${OUTPUT}.tgz ${OUTPUT}
             cpack -B build --config build/CPackSourceConfig.cmake
             mv build/falco-${{ steps.get-vn.outputs.vn }}-Source.tar.gz /workspace
         run: |
