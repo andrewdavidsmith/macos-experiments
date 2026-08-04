@@ -126,6 +126,7 @@ jobs:
           -output falco/build/falco
       - name: Package
         run: |
+          ls -lR
           export OUTPUT=falco-${{ steps.get-vn.outputs.vn }}-macOS
           mkdir /workspace/${OUTPUT}
           ls -lR
