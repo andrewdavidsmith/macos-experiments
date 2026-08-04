@@ -127,14 +127,15 @@ jobs:
       - name: Package
         run: |
           ls -lR
+          pwd
           export OUTPUT=falco-${{ steps.get-vn.outputs.vn }}-macOS
-          mkdir /workspace/${OUTPUT}
+          mkdir ${OUTPUT}
           ls -lR
           cd falco
           cpack -B build --config build/CPackConfig.cmake
-          mv build/falco-${{ steps.get-vn.outputs.vn }}-macOS.sh /workspace/${OUTPUT}
-          mv build/falco-${{ steps.get-vn.outputs.vn }}-macOS.tar.gz /workspace/${OUTPUT}
-          tar -C /workspace -zcf /workspace/${OUTPUT}.tgz ${OUTPUT}
+          mv build/falco-${{ steps.get-vn.outputs.vn }}-macOS.sh ../${OUTPUT}
+          mv build/falco-${{ steps.get-vn.outputs.vn }}-macOS.tar.gz ../${OUTPUT}
+          tar -C .. -zcf ../${OUTPUT}.tgz ${OUTPUT}
       - name: Upload the package files
         uses: actions/upload-artifact@v7
         with:
