@@ -87,8 +87,21 @@ jobs:
             cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.deb .
         run: |
           docker exec build-container bash -c "$SCRIPT"
-      - name: Upload the binary
+      - name: Upload the source archive
         uses: actions/upload-artifact@v7
         with:
-          name: falco-${{ steps.get-vn.outputs.vn }}-${{ steps.get-vn.outputs.hash }}-Linux
-          path: falco-${{ steps.get-vn.outputs.vn }}-${{ steps.get-vn.outputs.hash }}-Linux
+          name: falco-${{ steps.get-vn.outputs.vn }}-Source.tar.gz
+          path: falco-${{ steps.get-vn.outputs.vn }}-Source.tar.gz
+          archive: false
+      - name: Upload the package in tar.gz format
+        uses: actions/upload-artifact@v7
+        with:
+          name: falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz
+          path: falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz
+          archive: false
+      - name: Upload the package in DEB format
+        uses: actions/upload-artifact@v7
+        with:
+          name: falco-${{ steps.get-vn.outputs.vn }}-Linux.deb
+          path: falco-${{ steps.get-vn.outputs.vn }}-Linux.deb
+          archive: false
