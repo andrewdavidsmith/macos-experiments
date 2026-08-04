@@ -96,6 +96,8 @@ jobs:
           brew install zlib libdeflate htslib xz
       - name: Configure for CPack
         run: |
+          git clone https://github.com/smithlabcode/falco.git
+          cd falco
           # We will not build from this config, so it's ok to link these libs
           cmake -B build \
           -DPACKAGE=on \
@@ -116,6 +118,7 @@ jobs:
           -output build/falco
       - name: Package
         run: |
+          ls -lR
           cpack -B build --config build/CPackConfig.cmake
       - name: Get version number
         id: get-vn
