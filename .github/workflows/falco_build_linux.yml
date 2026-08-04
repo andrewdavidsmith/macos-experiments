@@ -90,10 +90,12 @@ jobs:
             cmake --build build -j4 && \
             cpack -B build --config build/CPackConfig.cmake
             cpack -B build --config build/CPackSourceConfig.cmake
-            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz /workspace
-            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.deb /workspace
-            cp build/falco-${{ steps.get-vn.outputs.vn }}-Source.tar.gz /workspace
-            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.sh /workspace
+            mkdir /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
+            cp build/falco-${{ steps.get-vn.outputs.vn }}-Source.tar.gz /workspace/
+            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
+            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.deb /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
+            cp build/falco-${{ steps.get-vn.outputs.vn }}-Linux.sh /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
+            tar -zcf /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files.tgz /workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files
         run: |
           docker exec build-container bash -c "$SCRIPT"
       - name: Upload the source archive
@@ -102,21 +104,9 @@ jobs:
           name: falco-${{ steps.get-vn.outputs.vn }}-Source.tar.gz
           path: falco-${{ steps.get-vn.outputs.vn }}-Source.tar.gz
           archive: false
-      - name: Upload the package in tar.gz format
+      - name: Upload the package files
         uses: actions/upload-artifact@v7
         with:
-          name: falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz
-          path: falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz
-          archive: false
-      - name: Upload the package in DEB format
-        uses: actions/upload-artifact@v7
-        with:
-          name: falco-${{ steps.get-vn.outputs.vn }}-Linux.deb
-          path: falco-${{ steps.get-vn.outputs.vn }}-Linux.deb
-          archive: false
-      - name: Upload the package in STGZ format
-        uses: actions/upload-artifact@v7
-        with:
-          name: falco-${{ steps.get-vn.outputs.vn }}-Linux.sh
-          path: falco-${{ steps.get-vn.outputs.vn }}-Linux.sh
+          name: falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files.tgz
+          path: falco-${{ steps.get-vn.outputs.vn }}-Linux_package_files.tgz
           archive: false
