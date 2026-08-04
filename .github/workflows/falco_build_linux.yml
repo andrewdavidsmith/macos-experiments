@@ -79,6 +79,8 @@ jobs:
             cp libhts.a /usr/local/lib/ && \
             cp -r /workspace/htslib/htslib /usr/local/include/ && \
             cd /workspace && \
+            export OUTPUT=falco-${{ steps.get-vn.outputs.vn }}-Linux && \
+            mkdir /workspace/${OUTPUT} && \
             git clone https://github.com/smithlabcode/falco.git && \
             cd falco && \
             cmake -B build \
@@ -86,13 +88,11 @@ jobs:
                 -DUSE_ISAL=on \
                 -DCMAKE_BUILD_TYPE=Release && \
             cmake --build build -j4 && \
-            cpack -B build --config build/CPackConfig.cmake
-            export OUTPUT=/workspace/falco-${{ steps.get-vn.outputs.vn }}-Linux
-            mkdir ${OUTPUT}
-            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz ${OUTPUT}
-            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.deb ${OUTPUT}
-            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.sh ${OUTPUT}
-            tar -zcf ${OUTPUT}.tgz ${OUTPUT}
+            cpack -B build --config build/CPackConfig.cmake && \
+            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.tar.gz /workspace/${OUTPUT}
+            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.deb /workspace/${OUTPUT}
+            mv build/falco-${{ steps.get-vn.outputs.vn }}-Linux.sh /workspace/${OUTPUT}
+            tar -zcf /workspace/${OUTPUT}.tgz /workspace/${OUTPUT}
             cpack -B build --config build/CPackSourceConfig.cmake
             mv build/falco-${{ steps.get-vn.outputs.vn }}-Source.tar.gz /workspace
         run: |
