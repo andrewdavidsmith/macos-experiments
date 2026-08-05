@@ -165,6 +165,7 @@ jobs:
       - name: Package
         run: |
           export OUTPUT=falco-${{ steps.vars.outputs.vn }}-macOS
+          mkdir ${OUTPUT}
           cd falco
           cpack -B build --config build/CPackConfig.cmake
           mv build/falco-${{ steps.vars.outputs.vn }}-macOS.sh ../${OUTPUT}
