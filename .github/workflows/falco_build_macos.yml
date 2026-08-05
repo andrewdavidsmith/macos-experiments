@@ -147,6 +147,7 @@ jobs:
       - name: Get version number
         id: vars
         run: |
+          ls -lR binaries
           cd falco
           awk '/^  VERSION [0-9.]+$/ {print "vn="$NF}' CMakeLists.txt >> "$GITHUB_OUTPUT"
           uname -m | awk '{print "arch="$0}' >> "$GITHUB_OUTPUT"
@@ -157,6 +158,7 @@ jobs:
           mv falco/build/falco binaries/falco-${{ steps.vars.outputs.arch }}
       - name: Create universal binaries
         run: |
+          ls -lR binaries
           lipo -create \
           binaries/falco-* \
           -output falco/build/falco
