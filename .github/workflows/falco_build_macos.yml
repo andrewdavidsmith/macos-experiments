@@ -79,7 +79,7 @@ jobs:
           path: |
             falco_${{ steps.vars.outputs.arch }}
   make-binary-and-package:
-    needs: make-binary-macos
+    needs: make-binary-macos-intel
     runs-on: macos-26
     steps:
       - uses: actions/checkout@v7
