@@ -138,16 +138,19 @@ jobs:
           -DZLIB_ROOT=/opt/falco \
           -DCMAKE_BUILD_TYPE=Release && \
           cmake --build build -j4
-      - name: Download intel binary
+      - name: Download Intel binary
         uses: actions/download-artifact@v8
         with:
           path: binaries
           pattern: falco-*
           merge-multiple: false
+      - name: Remove Intel binary artifact
+        uses: geekyeggo/delete-artifact@v6
+        with:
+          name: falco-*
       - name: Get version number
         id: vars
         run: |
-          ls -lR binaries
           cd falco
           awk '/^  VERSION [0-9.]+$/ {print "vn="$NF}' CMakeLists.txt >> "$GITHUB_OUTPUT"
           uname -m | awk '{print "arch="$0}' >> "$GITHUB_OUTPUT"
@@ -158,7 +161,6 @@ jobs:
           mv falco/build/falco binaries/falco-${{ steps.vars.outputs.arch }}
       - name: Create universal binaries
         run: |
-          ls -lR binaries
           lipo -create \
           binaries/falco-* \
           -output falco/build/falco
