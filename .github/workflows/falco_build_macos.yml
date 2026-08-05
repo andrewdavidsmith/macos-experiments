@@ -171,6 +171,6 @@ jobs:
       - name: Upload the package files
         uses: actions/upload-artifact@v7
         with:
-          name: falco-${{ steps.get-vn.outputs.vn }}-macOS.tgz
-          path: falco-${{ steps.get-vn.outputs.vn }}-macOS.tgz
+          name: falco-${{ steps.vars.outputs.vn }}-macOS.tgz
+          path: falco-${{ steps.vars.outputs.vn }}-macOS.tgz
           archive: false
