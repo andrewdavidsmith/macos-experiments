@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Whatever
-        run:
+        run: |
           clang++ --version
           whereis clang++
           whereis clang
