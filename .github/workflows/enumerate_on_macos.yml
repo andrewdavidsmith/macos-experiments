@@ -10,4 +10,8 @@ jobs:
       - uses: actions/checkout@v7
       - name: Whatever
         run:
+          clang++ --version
+          whereis clang++
+          whereis clang
+          find /opt -name \*clang\* -type f
           clang++ -std=c++23 -o main main.cpp
